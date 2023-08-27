@@ -6,5 +6,5 @@ code-server with dev environment pre-installed using linuxserver/code-server as 
 - `cd blogindex.xyz-dev`
 - `docker compose build` or `docker-compose build` depending on the version of docker you have installed
 - `docker compose up -d`
-
+- Open [http://localhost:8443](https://localhost:8443)
 
