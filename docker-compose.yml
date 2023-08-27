@@ -1,0 +1,44 @@
+---
+version: "3"
+
+services:
+  blogindex-xyz-dev:
+    build: .
+    image: blogindex/blogindex.xyz-dev
+    container_name: blogindex.xyz-dev
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Anchorage
+#       - PASSWORD=YOURPASSWORD # CHANGE THIS!!!
+#       - SUDO_PASSWORD=YOURPASSWORD # CHANGE THIS!!!
+#       - PROXY_DOMAIN=blogindex-xyz-dev.YOURDOMAN.COM # For Reverse Proxy
+      - DEFAULT_WORKSPACE=/blogindex.xyz
+#     volumes:
+#       - ./config:/config  # OPTIONAL to save config
+#       - ./blogindex.xyz:/blogindex.xyz # OPTIONAL
+                               # If you do this clone blogindex.xyz manually
+                               # `git clone https://github.com/blogindex/blogindex.xyz`
+                               # in this directory
+    ports:
+      - 8443:8443 # Port for code-server
+      - 9000:9000 # Port for blogindex.xyz flask app
+    restart: unless-stopped
+
+####################################################
+# OPTIONAL TRAEFIK SETUP                           #
+####################################################
+#     labels:
+#       - 'traefik.enable=true'
+#       - 'traefik.http.routers.blogindex-xyz-dev.rule=Host(`blogindex-xyz-dev.YOURDOMAN.COM`)'
+#       - 'traefik.http.routers.blogindex-xyz-dev.entryPoints=https'
+#       - 'traefik.http.routers.blogindex-xyz-dev.tls=true'
+#       - 'traefik.http.routers.blogindex-xyz-dev.tls.certresolver=le'
+#       - "traefik.http.routers.blogindex-xyz-dev.service=blogindex-xyz-dev-entrypoint"
+#       - 'traefik.http.services.blogindex-xyz-dev-entrypoint.loadbalancer.server.port=8443'
+#     networks:
+#       - traefik #<-- Your Traefik docker network
+#
+# networks:
+#   traefik: # <-- Your Traefik docker network
+#     external:
